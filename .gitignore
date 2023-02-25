@@ -1,0 +1,6 @@
+# Cache and Config
+.vscode
+
+# misc
+.DS_Store
+**.csv

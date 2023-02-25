@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argo-project-helloworld
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Project for Application - hello world
+  # Allow manifests to be deployed from any Git repos
+  sourceRepos:
+    - "*"
+  # Only permit applications to deploy to the dev cluster
+  destinations:
+    - namespace: dev
+      server: https://kubernetes.default.svc
+  # Allow all cluster-scoped resources
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  # Allow all namespace-scoped resources
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
