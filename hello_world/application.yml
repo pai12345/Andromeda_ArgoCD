@@ -3,8 +3,11 @@ kind: Application
 metadata:
   name: argo-app-helloworld
   namespace: argocd
+  labels:
+    name: argo-app-helloworld
+    type: argocd
 spec:
-  project: default
+  project: argo-project-helloworld
   source:
     repoURL: https://github.com/pai12345/Andromeda_Infrastructure.git
     targetRevision: HEAD
