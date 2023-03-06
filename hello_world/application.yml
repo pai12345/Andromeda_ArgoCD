@@ -14,6 +14,7 @@ spec:
     path: Kubernetes/hellow_world
     directory:
       recurse: true
+    targetRevision: 0.0.1
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
