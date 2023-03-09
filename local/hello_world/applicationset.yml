@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argo-appset-helloworld
+  namespace: argocd
+  labels:
+    name: argo-appset-helloworld
+    type: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: local
+        url: https://kubernetes.default.svc
+        namespace: dev
+  template:
+    metadata:
+        name: '{{cluster}}-app-helloworld'
+        namespace: argocd
+        labels:
+          name: '{{cluster}}-app-helloworld'
+          type: argocd
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/pai12345/Andromeda_Infrastructure.git
+        targetRevision: HEAD
+        path: Kubernetes/hellow_world
+        directory:
+          recurse: true
+        targetRevision: 0.0.1
+      destination:
+        server: '{{url}}'
+        namespace: '{{namespace}}'
