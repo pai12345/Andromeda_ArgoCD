@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-app-helloworld
+  namespace: argocd
+  labels:
+    name: argo-app-helloworld
+    type: argocd
+spec:
+  project: argo-project-helloworld
+  source:
+    repoURL: https://github.com/pai12345/Andromeda_Infrastructure.git
+    path: Helm/hello_world
+    directory:
+      recurse: true
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    automated: 
+      prune: true
+      selfHeal: true
